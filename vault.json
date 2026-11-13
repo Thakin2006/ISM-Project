@@ -1,0 +1,21 @@
+{
+  "tiers": {
+    "hot":  { "Data": "Exam portal, learning platform, timetable", "Storage": "Flash disks on a SAN", "Protection": "RAID 10", "Access": "Seconds matter", "Cost": "Highest per GB" },
+    "warm": { "Data": "Student records, course files, lecture recordings", "Storage": "NAS", "Protection": "RAID 6 with deduplication", "Access": "Daily use", "Cost": "Medium per GB" },
+    "cold": { "Data": "Alumni records, old exam papers, audit files", "Storage": "Cloud object storage or tape", "Protection": "Kept 7+ years", "Access": "Rarely opened", "Cost": "Lowest per GB" }
+  },
+  "access": {
+    "students":  [["Own results and files", 1], ["Other students' records", 0], ["Marks entry", 0], ["Storage systems", 0], ["Exam content", 0]],
+    "faculty":   [["Their own courses", 1], ["Their marks entry", 1], ["Student records", 0], ["Storage systems", 0], ["Exam content (own papers)", 1]],
+    "registrar": [["Student records", 1], ["Marks entry", 0], ["Storage systems", 0], ["Exam content", 0]],
+    "it":        [["Storage systems", 1], ["Backups and snapshots", 1], ["Exam content", 0], ["Student records content", 0]]
+  },
+  "lifecycle": [
+    { "step": "Create",  "detail": "Marks, videos and forms enter the system." },
+    { "step": "Store",   "detail": "Placed in the hot or warm tier." },
+    { "step": "Protect", "detail": "Snapshot, backup, replicate." },
+    { "step": "Archive", "detail": "Moved to cold storage after a set time." },
+    { "step": "Dispose", "detail": "Securely erased when retention ends." }
+  ],
+  "targets": { "rpoHours": 4, "rtoHours": 2, "examPortalAvailability": 99.9, "storageCost": "Lower" }
+}

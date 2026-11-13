@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Campus Data Vault – ISM Mini Project</title>
+<meta name="description" content="A storage and protection plan that keeps a 5,000-student college's records, exams and lectures safe, fast and affordable.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">Information Storage and Management (ISM) mini project</p>
+    <h1>Campus Data Vault</h1>
+    <p class="lead">A storage and protection plan that keeps a 5,000-student college's records, exams and lectures safe, fast and affordable.</p>
+  </div>
+</header>
+
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <a href="#problem">Problem</a><a href="#tiers">Storage tiers</a><a href="#backup">3-2-1 backup</a>
+    <a href="#access">Access</a><a href="#lifecycle">Lifecycle</a><a href="#targets">Targets</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section id="problem" class="two">
+    <div>
+      <h2>The problem</h2>
+      <p>Colleges create data every day: admissions, attendance, marks, exam papers, lecture videos. Much of it sits on staff laptops, USB drives and one server in the admin office. A single disk failure, ransomware attack or lost laptop can wipe out a semester of work.</p>
+    </div>
+    <div>
+      <h2>What went wrong before</h2>
+      <ul>
+        <li>No backup copy stored outside the building</li>
+        <li>All data on the same costly disks, old or new</li>
+        <li>Nobody knows how long recovery would take</li>
+        <li>Everyone can open everything</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="tiers">
+    <h2>Match the storage to how the data is used</h2>
+    <p>Data opened every minute needs fast disks. Data opened once a year can sit on cheap storage. Tiering keeps performance high and cost low. Select a tier to see details.</p>
+    <div class="pyramid" role="tablist" aria-label="Storage tiers">
+      <button class="tier hot" role="tab" aria-selected="true" data-tier="hot"><b>Hot: seconds matter</b><span>Exam portal, learning platform, timetable. Flash disks on a SAN with RAID 10.</span></button>
+      <button class="tier warm" role="tab" aria-selected="false" data-tier="warm"><b>Warm: daily use</b><span>Student records, course files, lecture recordings. NAS with RAID 6 and deduplication.</span></button>
+      <button class="tier cold" role="tab" aria-selected="false" data-tier="cold"><b>Cold: keep, rarely open</b><span>Alumni records, old exam papers, audit files. Cloud object storage or tape, kept 7+ years.</span></button>
+    </div>
+    <div class="scale"><span>Smaller, faster, costlier</span><span>Larger, slower, cheaper</span></div>
+    <div id="tierDetail" class="panel" aria-live="polite"></div>
+  </section>
+
+  <section id="backup" class="two">
+    <div>
+      <h2>Never lose the only copy</h2>
+      <p>The backup plan follows the 3-2-1 rule. Tick each rule as you go.</p>
+      <div class="rule321">
+        <label class="rule"><input type="checkbox"><span class="num">3</span><small>copies of every file</small></label>
+        <label class="rule"><input type="checkbox"><span class="num">2</span><small>types of media</small></label>
+        <label class="rule"><input type="checkbox"><span class="num">1</span><small>copy off campus</small></label>
+      </div>
+      <p id="ruleMsg" class="note" aria-live="polite">0 of 3 rules in place.</p>
+      <p>Hourly snapshots undo accidental deletes. Records replicate to a second building for fast failover.</p>
+    </div>
+    <div id="access">
+      <h2>Who can see what</h2>
+      <div class="roles" role="tablist" aria-label="Roles">
+        <button role="tab" aria-selected="true" data-role="students">Students</button>
+        <button role="tab" aria-selected="false" data-role="faculty">Faculty</button>
+        <button role="tab" aria-selected="false" data-role="registrar">Registrar</button>
+        <button role="tab" aria-selected="false" data-role="it">IT admins</button>
+      </div>
+      <table class="matrix">
+        <thead><tr><th>Data</th><th>Access</th></tr></thead>
+        <tbody id="matrix"></tbody>
+      </table>
+      <p class="note">All data is encrypted in storage and in transit. Every access is logged.</p>
+    </div>
+  </section>
+
+  <section id="lifecycle">
+    <h2>How a file lives in the vault</h2>
+    <ol class="steps" id="steps"></ol>
+    <div id="stepDetail" class="panel" aria-live="polite"></div>
+    <div class="controls"><button id="prev" class="btn">Previous</button><button id="next" class="btn primary">Next step</button></div>
+  </section>
+
+  <section id="targets" class="two">
+    <div>
+      <h2>Design targets</h2>
+      <table class="targets">
+        <tr><th>RPO: recovery point objective<small>At most 4 hours of work lost</small></th><td>4 hours</td></tr>
+        <tr><th>RTO: recovery time objective<small>Systems back within 2 hours</small></th><td>2 hours</td></tr>
+        <tr><th>Exam portal availability<small>About 9 hours downtime a year</small></th><td>99.9%</td></tr>
+        <tr><th>Storage cost<small>Old data leaves costly disks</small></th><td>Lower</td></tr>
+      </table>
+      <p class="note">Planning targets for the design, not measured results.</p>
+    </div>
+    <div>
+      <h2>Check an availability target</h2>
+      <label for="avail">Availability: <output id="availOut">99.9%</output></label>
+      <input id="avail" type="range" min="99" max="99.99" step="0.01" value="99.9">
+      <p id="downtime" class="big" aria-live="polite"></p>
+      <p class="note">Yearly downtime allowed at this availability.</p>
+    </div>
+  </section>
+
+  <section class="conclusion">
+    <h2>Conclusion</h2>
+    <p>Good storage management is what lets a college trust its own records. Tiering controls cost, RAID and the 3-2-1 backup rule protect against failure, and clear access rules protect student privacy.</p>
+  </section>
+</main>
+<footer><div class="wrap">Campus Data Vault · ISM mini project</div></footer>
+<script src="script.js"></script>
+</body>
+</html>
